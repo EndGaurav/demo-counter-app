@@ -21,13 +21,13 @@ pipeline{
                 }
             }
         }
-        // stage('Integration test') {
-        //     steps {
-        //         script {
-        //             sh 'mvn verify -DskipUnitTest='
-        //         }
-        //     }
-        // }
+        stage('Integration test') {
+            steps {
+                script {
+                    sh 'mvn verify -DskipUnitTest'
+                }
+            }
+        }
     }
         
 }

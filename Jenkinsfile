@@ -28,6 +28,13 @@ pipeline{
                 }
             }
         }
+        stage('Building application') {
+            steps {
+                script {
+                    sh 'mvn clean install'
+                }
+            }
+        }
     }
         
 }

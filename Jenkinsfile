@@ -48,7 +48,7 @@ pipeline{
             steps {
                
                 script { 
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token' 
+                    waitForQualityGate abortPipeline: true, credentialsId: 'sonar-token' 
                     // timeout(time: 1, unit: 'HOURS') {
                     //     def qg = waitForQualityGate()
                     //     if (qg.status != 'OK') {

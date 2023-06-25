@@ -63,7 +63,11 @@ pipeline{
         }
         stage('Upload artifact to nexus') {
             steps {
+                // for making dynamic nature of jenkins to fetch there is plugin called: pipeline utility steps.
+                // search for how to read file using pipeline utility steps.
                 script {
+                    def readArtifactVersion = readMavenPom file: 'pom.xml'  
+                    // def pomVersion = readArtifactVersion.version
                     nexusArtifactUploader artifacts: [
                             [
                                 artifactId: 'springboot',
@@ -79,7 +83,7 @@ pipeline{
                         nexusVersion: 'nexus3', 
                         protocol: 'http',
                         repository: 'demoapp-release',
-                        version: '1.0.0'
+                        version: "${readArtifactVersion.version}"
                 }
             }
         }

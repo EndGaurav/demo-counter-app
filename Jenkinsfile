@@ -95,6 +95,8 @@ pipeline{
                     sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
                     sh 'docker image tag $JOB_NAME:v1.$BUILD_ID endgaurav/$JOB_NAME:V1.$BUILD_ID'
                     sh 'docker image tag $JOB_NAME:v1.$BUILD_ID endgaurav/$JOB_NAME:latest'
+
+                    sh 'docker image rm $JOB_NAME:v1.$BUILD_ID endgaurav/$JOB_NAME:V1.$BUILD_ID endgaurav/$JOB_NAME:latest'
                 }
             }
         }

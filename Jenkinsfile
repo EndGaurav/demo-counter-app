@@ -80,7 +80,7 @@ pipeline{
                         ],
                         credentialsId: 'nexus-cred',
                         groupId: 'com.example', 
-                        nexusUrl: '3.94.86.48:8081',  // replace it as per node ip.
+                        nexusUrl: '34.207.86.212:8081',  // replace it as per node ip.
                         nexusVersion: 'nexus3', 
                         protocol: 'http',
                         repository: "${nexusRepo}",

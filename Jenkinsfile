@@ -97,6 +97,17 @@ pipeline{
                 }
             }
         }
+        stage('Pushing image to docker hub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-cred', passwordVariable: 'dockerPasswd', usernameVariable: 'dockerUsername')]) {
+                            sh "docker login -u ${dockerUsername} -p ${dockerPasswd}"
+                            sh 'docker image push endgaurav/$JOB_NAME:V1.$BUILD_ID'
+                            sh 'docker image push endgaurav/$JOB_NAME:latest'
+                    }
+                }
+            }
+        }
     }
         
 }

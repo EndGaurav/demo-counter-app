@@ -71,7 +71,7 @@ pipeline{
             }
         }
         stage('Destroy deployment') {
-            when { expression {params == 'destroy'}}
+            when { expression {params.action == 'destroy'}}
 
             steps {
                 script {

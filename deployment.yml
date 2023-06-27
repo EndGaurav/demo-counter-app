@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myspringBootApp
+spec:
+  selector:
+    matchLabels:
+      app: myspringBootApp
+  template:
+    metadata:
+      labels:
+        app: myspringBootApp
+    spec:
+      containers:
+      - name: myspringBootApp
+        image: endgaurav/demo-pipeline:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9099

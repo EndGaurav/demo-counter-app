@@ -1,6 +1,28 @@
 pipeline{
     
     agent any 
+
+    parameters {
+        choice(
+            name: 'action',
+            choices: 'create\ndestroy\nclusterDestroy',
+            description: 'Create, update or delete your eks cluster' 
+        )
+        string(
+            name: 'cluster',
+            default: 'Master-Node-1',
+            description: 'EKS cluster name'
+        )
+        string(
+            name: 'regions',
+            default: 'us-east-1',
+            description: 'EKS cluster region'
+        )
+    }
+    environment {
+        ACCESS_KEY_ID = credentials('access_key')
+        SECRET_ACCESS_KEY = credentials('secret_id')
+    }
     
     stages {
         
@@ -14,6 +36,39 @@ pipeline{
                 }
             }
         }
+        stage('Connect to EKS') {
+            steps {
+                script {
+                    sh """
+                        aws configure set aws_access_key_id = "$ACCESS_KEY_ID"
+                        aws configure set aws_secret_access_key = "$SECRET_ACCESS_KEY"
+                        aws configure set region = ""
+                        aws eks --region ${params.region} update-kubeconfig --name ${params.cluster}
+                    """
+                }
+            }
+        }
+        // stage('Deploy application to EKS cluster') {
+        //     when { expression { params.action == 'create' } }
+
+        //     steps {
+        //         script {
+        //             def apply = false
+        //             try {
+        //                 input message: 'Please confirm the apply to innitate the deployments', ok: 'Ready to apply the cofig'
+        //                 apply = true
+        //             }catch(err) {
+        //                 apply = false
+        //                 CurrentBuild = 'UNSTABLE'
+        //             }
+
+        //             if(apply) {
+        //                 sh '''kubectl apply -f . '''
+        //             }
+        //         }
+        //     }
+        // }
+        // --------------------------------------------------------------------------------------------------------------
         // stage('Unit test') {
         //     steps {
         //         script {

@@ -14,5 +14,6 @@ spec:
       containers:
       - name: myspringBootApp
         image: endgaurav/demo-pipeline:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 9099

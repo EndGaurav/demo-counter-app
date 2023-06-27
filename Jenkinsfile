@@ -10,12 +10,12 @@ pipeline{
         )
         string(
             name: 'cluster',
-            default: 'Master-Node-1',
+            defaultValue: 'Master-Node-1',
             description: 'EKS cluster name'
         )
         string(
             name: 'regions',
-            default: 'us-east-1',
+            defaultValue: 'us-east-1',
             description: 'EKS cluster region'
         )
     }

@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myspringBootApp
+  name: myspringboot
 spec:
   selector:
     matchLabels:
-      app: myspringBootApp
+      app: myspringboot
   template:
     metadata:
       labels:
-        app: myspringBootApp
+        app: myspringboot
     spec:
       containers:
-      - name: myspringBootApp
+      - name: myspringboot
         image: endgaurav/demo-pipeline:latest
         imagePullPolicy: Always
         ports:

@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: springBootService
+  name: myspringboot
 spec:
   type: LoadBalancer
   selector:
-    app: myspringBootApp
+    app: myspringboot
   ports:
   - port: 80
     targetPort: 9099

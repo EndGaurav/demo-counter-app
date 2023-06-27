@@ -48,26 +48,28 @@ pipeline{
                 }
             }
         }
-        // stage('Deploy application to EKS cluster') {
-        //     when { expression { params.action == 'create' } }
+        stage('Deploy application to EKS cluster') {
+            when { expression { params.action == 'create' } }
 
-        //     steps {
-        //         script {
-        //             def apply = false
-        //             try {
-        //                 input message: 'Please confirm the apply to innitate the deployments', ok: 'Ready to apply the cofig'
-        //                 apply = true
-        //             }catch(err) {
-        //                 apply = false
-        //                 CurrentBuild = 'UNSTABLE'
-        //             }
+            steps {
+                script {
+                    def apply = false
+                    try {
+                        input message: 'Please confirm the apply to innitate the deployments', ok: 'Ready to apply the cofig'
+                        apply = true
+                    }catch(err) {
+                        apply = false
+                        CurrentBuild = 'UNSTABLE'
+                    }
 
-        //             if(apply) {
-        //                 sh '''kubectl apply -f . '''
-        //             }
-        //         }
-        //     }
-        // }
+                    if(apply) {
+                        sh '''
+                            kubectl apply -f . 
+                            '''
+                    }
+                }
+            }
+        }
         // --------------------------------------------------------------------------------------------------------------
         // stage('Unit test') {
         //     steps {

@@ -59,12 +59,34 @@ pipeline{
                         apply = true
                     }catch(err) {
                         apply = false
-                        CurrentBuild = 'UNSTABLE'
+                        CurrentBuild.result = 'UNSTABLE'
                     }
 
                     if(apply) {
                         sh '''
                             kubectl apply -f . 
+                            '''
+                    }
+                }
+            }
+        }
+        stage('Destroy deployment') {
+            when { expression {params == 'destroy'}}
+
+            steps {
+                script {
+                    def apply = false
+                    try {
+                        input message: 'Please confirm to destroy the deployments', ok: 'Ready to destroy config'
+                        apply = true
+                    }catch(err) {
+                        apply = false
+                        CurrentBuild.result = 'UNSTABLE'
+                    }
+
+                    if(apply) {
+                        sh '''
+                            kubectl delete -f .
                             '''
                     }
                 }
